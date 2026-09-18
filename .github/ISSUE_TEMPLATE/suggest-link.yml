@@ -1,0 +1,29 @@
+---
+name: suggest-link
+description: Suggest one AI link for the learning hub
+title: "Suggest link: PASTE TITLE HERE"
+labels: ["suggest-link"]
+body:
+  - type: input
+    id: url
+    attributes:
+      label: Exact link
+      placeholder: https://example.com/ai-news
+    validations:
+      required: true
+  - type: input
+    id: publisher
+    attributes:
+      label: Publisher or lab
+      placeholder: OpenAI, Anthropic, arXiv, X
+  - type: textarea
+    id: why
+    attributes:
+      label: Why this link matters
+      placeholder: One or two short sentences
+  - type: input
+    id: pdf
+    attributes:
+      label: Direct PDF link, when available
+      placeholder: https://example.com/paper.pdf
+---
