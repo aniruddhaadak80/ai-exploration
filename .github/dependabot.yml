@@ -1,0 +1,21 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    versioning-strategy: increase-if-necessary
+    ignore:
+      # Next 16 requires React 19 and removed `next lint`, which this app still
+      # relies on (`npm run lint`). Upgrading Next is a separate, deliberate
+      # migration, so keep Dependabot on the 14.x line.
+      - dependency-name: next
+        versions: [">=15"]
+      - dependency-name: eslint-config-next
+        versions: [">=15"]
+      - dependency-name: react
+        versions: [">=19"]
+      - dependency-name: react-dom
+        versions: [">=19"]
