@@ -23,7 +23,7 @@ updates:
       # rewrote the flat-config defaults; both are breaking upgrades for this
       # app, so they stay manual.
       - dependency-name: typescript
-        versions: [">=7"]
+        versions: [">=6"]
       - dependency-name: eslint
         versions: [">=9"]
       - dependency-name: "@typescript-eslint/eslint-plugin"
