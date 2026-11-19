@@ -1,9 +1,12 @@
 import Link from "next/link";
 import { getAllEntries, getAllTopics } from "@/lib/library";
 
-export default function Home({ searchParams }: { searchParams?: { q?: string; topic?: string } }) {
-  const q = (searchParams?.q ?? "").toLowerCase().trim();
-  const topic = (searchParams?.topic ?? "").toLowerCase().trim();
+// Next 15 passes searchParams as a promise; the generated PageProps type now
+// enforces that shape, so await it before filtering.
+export default async function Home({ searchParams }: { searchParams?: Promise<{ q?: string; topic?: string }> }) {
+  const query = (await searchParams) ?? {};
+  const q = (query.q ?? "").toLowerCase().trim();
+  const topic = (query.topic ?? "").toLowerCase().trim();
   const all = getAllEntries();
   const topics = getAllTopics();
   const filtered = all.filter((e) => {
@@ -20,7 +23,7 @@ export default function Home({ searchParams }: { searchParams?: { q?: string; to
         in short and calm sentences. Start here when the full source feels long.
       </p>
       <form method="get" action="/">
-        <input type="search" name="q" placeholder="Search by title, topic, or keyword" defaultValue={searchParams?.q ?? ""} />
+        <input type="search" name="q" placeholder="Search by title, topic, or keyword" defaultValue={query.q ?? ""} />
       </form>
       <div style={{ marginTop: 12 }}>
         <Link className="tag" href="/">all</Link>
