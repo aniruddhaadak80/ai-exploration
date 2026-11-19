@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -11,10 +12,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body>
         <div className="nav">
-          <a href="/">AI Exploration</a>
+          <Link href="/">AI Exploration</Link>
           <div className="row">
-            <a href="/">Home</a>
-            <a href="/topics">Topics</a>
+            <Link href="/">Home</Link>
+            <Link href="/topics">Topics</Link>
             <a href="https://github.com/aniruddhaadak80/ai-exploration">GitHub</a>
           </div>
         </div>
