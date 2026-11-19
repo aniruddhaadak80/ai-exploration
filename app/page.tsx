@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { getAllEntries, getAllTopics } from "@/lib/library";
 
-export default function Home({ searchParams }: { searchParams?: { q?: string; topic?: string } }) {
-  const q = (searchParams?.q ?? "").toLowerCase().trim();
-  const topic = (searchParams?.topic ?? "").toLowerCase().trim();
+export default async function Home({ searchParams }: { searchParams?: Promise<{ q?: string; topic?: string }> }) {
+  const params = (await searchParams) ?? {};
+  const q = (params.q ?? "").toLowerCase().trim();
+  const topic = (params.topic ?? "").toLowerCase().trim();
   const all = getAllEntries();
   const topics = getAllTopics();
   const filtered = all.filter((e) => {
@@ -20,7 +21,7 @@ export default function Home({ searchParams }: { searchParams?: { q?: string; to
         in short and calm sentences. Start here when the full source feels long.
       </p>
       <form method="get" action="/">
-        <input type="search" name="q" placeholder="Search by title, topic, or keyword" defaultValue={searchParams?.q ?? ""} />
+        <input type="search" name="q" placeholder="Search by title, topic, or keyword" defaultValue={params.q ?? ""} />
       </form>
       <div style={{ marginTop: 12 }}>
         <Link className="tag" href="/">all</Link>

@@ -29,11 +29,12 @@ function stripMermaidFromHtml(html: string): string {
   return html.replace(/<pre><code class="language-mermaid">[\s\S]*?<\/code><\/pre>/g, "");
 }
 
-export default async function LearnPage({ params }: { params: { slug: string } }) {
-  const meta = getEntryMeta(params.slug);
+export default async function LearnPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const meta = getEntryMeta(slug);
   if (!meta) notFound();
-  const { html } = await getEntryHtml(params.slug);
-  const charts = extractMermaidCharts(params.slug);
+  const { html } = await getEntryHtml(slug);
+  const charts = extractMermaidCharts(slug);
   const cleanHtml = stripMermaidFromHtml(html);
 
   return (
